@@ -1,0 +1,20 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /sell
+spring:
+  application:
+    name: buyer
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.242.130/cloud?serverTimezone=GMT%2b8&useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+  redis:
+    host: 192.168.242.130
+    port: 6379
+    password:
+  jackson:
+    default-property-inclusion: non_null
