@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 /**
  * @ClassName BuyerServiceImpl
- * @Description: TODO
+ * @Description:
  * @Author fan
  * @Date 2019-01-04 14:07
  * @Version 1.0

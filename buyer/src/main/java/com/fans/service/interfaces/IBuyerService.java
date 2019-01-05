@@ -4,7 +4,7 @@ import com.fans.dto.OrderDto;
 
 /**
  * @InterfaceName IBuyerService
- * @Description: TODO
+ * @Description:
  * @Author fan
  * @Date 2019-01-04 14:04
  * @Version 1.0
