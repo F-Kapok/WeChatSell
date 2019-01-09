@@ -21,3 +21,7 @@ spring:
 wechat:
   mpAppId: wx6d790fe13fcf7a82
   mpAppSecret: 8fa58d6612648f4f204362155bdb5210
+  mchId: 1522963161
+  mchKey: 130930199411012418Fan18538111791
+  keyPath: http://mapok.natapp1.cc\sell\cert\apiclient_cert.p12
+  notifyUrl: http://mapok.natapp1.cc\sell\pay\notify
