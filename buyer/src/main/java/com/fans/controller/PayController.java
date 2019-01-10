@@ -4,12 +4,14 @@ import com.fans.common.ResponseCode;
 import com.fans.dto.OrderDto;
 import com.fans.exception.SellException;
 import com.fans.service.interfaces.IOrderService;
+import com.fans.service.interfaces.IPayService;
+import com.lly835.bestpay.model.PayResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @ClassName PayController
@@ -23,10 +25,13 @@ import javax.annotation.Resource;
 public class PayController {
     @Resource(name = "iOrderService")
     private IOrderService orderService;
+    @Resource(name = "iPayService")
+    private IPayService payService;
 
     @GetMapping(value = "/create")
-    public void create(@RequestParam(value = "orderId") String orderId,
-                       @RequestParam(value = "returnUrl") String returnUrl) {
+    public ModelAndView create(@RequestParam(value = "orderId") String orderId,
+                               @RequestParam(value = "returnUrl") String returnUrl,
+                               Map<String, Object> map) {
 
         //查询订单
         OrderDto orderDto = orderService.getOne(orderId);
@@ -34,5 +39,15 @@ public class PayController {
             throw new SellException(ResponseCode.ORDER_NOT_EXIST);
         }
         //发起支付
+        PayResponse payResponse = payService.create(orderDto);
+        map.put("response", payResponse);
+        map.put("returnUrl", returnUrl);
+        return new ModelAndView("pay/create", map);
+    }
+
+    @PostMapping(value = "/notify")
+    public ModelAndView weChatNotify(@RequestBody String notifyData) {
+        payService.weChatNotify(notifyData);
+        return new ModelAndView("/pay/success");
     }
 }

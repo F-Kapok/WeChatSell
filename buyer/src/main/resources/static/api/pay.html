@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<script>
+    function onBridgeReady() {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                //公众号名称，由商户传入
+                "appId": "wx6d790fe13fcf7a82",
+                //时间戳，自1970年以来的秒数
+                "timeStamp": "1547129902",
+                //随机串
+                "nonceStr": "CREIkHzWf7vSMRNi",
+                "package": "prepay_id=wx1022182325482708299f95411483542066",
+                //微信签名方式：
+                "signType": "MD5",
+                "paySign": "10DE2D4CA599C62A92B1CC9E575A4751" //微信签名
+            },
+            function (res) {
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                    // 使用以上方式判断前端返回,微信团队郑重提示：
+                    //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                }
+            });
+    }
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+</script>

@@ -1,6 +1,8 @@
 package com.fans.service.interfaces;
 
 import com.fans.dto.OrderDto;
+import com.lly835.bestpay.model.PayResponse;
+import com.lly835.bestpay.model.RefundResponse;
 
 /**
  * @InterfaceName IPayService
@@ -10,5 +12,9 @@ import com.fans.dto.OrderDto;
  * @Version 1.0
  **/
 public interface IPayService {
-    void create(OrderDto orderDto);
+    PayResponse create(OrderDto orderDto);
+
+    PayResponse weChatNotify(String notifyData);
+
+    RefundResponse refund(OrderDto orderDto);
 }

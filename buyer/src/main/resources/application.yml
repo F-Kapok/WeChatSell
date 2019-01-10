@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8080
   servlet:
     context-path: /sell
 spring:
@@ -23,5 +23,5 @@ wechat:
   mpAppSecret: 8fa58d6612648f4f204362155bdb5210
   mchId: 1522963161
   mchKey: 130930199411012418Fan18538111791
-  keyPath: http://mapok.natapp1.cc\sell\cert\apiclient_cert.p12
-  notifyUrl: http://mapok.natapp1.cc\sell\pay\notify
+  keyPath: E:/MyProject/WeChatShop/buyer/src/main/resources/static/cert/apiclient_cert.p12
+  notifyUrl: http://mapok.natapp1.cc/sell/pay/notify

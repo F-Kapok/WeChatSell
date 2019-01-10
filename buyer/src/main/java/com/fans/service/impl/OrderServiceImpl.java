@@ -13,6 +13,7 @@ import com.fans.repository.OrderDetailRepository;
 import com.fans.repository.OrderMasterRepository;
 import com.fans.repository.ProductInfoRepository;
 import com.fans.service.interfaces.IOrderService;
+import com.fans.service.interfaces.IPayService;
 import com.fans.service.interfaces.IProductInfoService;
 import com.fans.uitls.CommonUtil;
 import com.fans.uitls.IdUtil;
@@ -57,6 +58,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Resource(name = "iProductInfoService")
     private IProductInfoService productInfoService;
+
+    @Resource(name = "iPayService")
+    private IPayService payService;
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -142,9 +146,9 @@ public class OrderServiceImpl implements IOrderService {
                         .productQuantity(orderDetail.getProductQuantity())
                         .build()).collect(Collectors.toList());
         productInfoService.increaseStock(cartDtoList);
-        //TODO 如果已支付需要退款
-        if (orderDto.getPayStatus().equals(PayStatusEnum.SUCCESS)) {
-
+        //如果已支付需要退款
+        if (orderDto.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode().byteValue())) {
+            payService.refund(orderDto);
         }
         return orderDto;
     }

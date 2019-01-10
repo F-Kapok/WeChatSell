@@ -22,7 +22,7 @@ public class PayServiceImplTest {
 
     @Test
     public void create() {
-        OrderDto orderDto = orderService.getOne("154676030200987");
+        OrderDto orderDto = orderService.getOne("154676030200988");
         payService.create(orderDto);
     }
 }
