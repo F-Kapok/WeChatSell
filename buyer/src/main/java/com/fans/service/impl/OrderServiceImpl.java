@@ -197,4 +197,12 @@ public class OrderServiceImpl implements IOrderService {
         }
         return orderDto;
     }
+
+    @Override
+    public Page<OrderDto> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterList = masterRepository.findAll(pageable);
+        List<OrderDto> orderDtoList = orderMasterList.stream()
+                .map(OrderDto::adapt).collect(Collectors.toList());
+        return new PageImpl<>(orderDtoList, pageable, orderMasterList.getTotalElements());
+    }
 }

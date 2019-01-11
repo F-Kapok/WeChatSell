@@ -3,7 +3,9 @@ package com.fans.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.common.collect.Maps;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ import java.util.Map;
  * @Date 2018-11-20 09:44
  * @Version 1.0
  **/
+@NoArgsConstructor
 @Getter
 @Setter
 public class JsonData<T> implements Serializable {
@@ -79,7 +82,7 @@ public class JsonData<T> implements Serializable {
     }
 
     public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
+        HashMap<String, Object> result = Maps.newHashMap();
         result.put("code", code);
         result.put("msg", msg);
         result.put("data", data);

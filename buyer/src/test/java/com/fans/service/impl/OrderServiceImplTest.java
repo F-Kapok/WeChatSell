@@ -82,13 +82,20 @@ public class OrderServiceImplTest {
     public void finish() {
         OrderDto orderDto = iOrderService.getOne(ORDER_ID);
         OrderDto result = iOrderService.finish(orderDto);
-        assertTrue(result.getOrderStatus().equals(OrderStatusEnum.FINISHED.getCode().byteValue()));
+        assertEquals((byte) result.getOrderStatus(), OrderStatusEnum.FINISHED.getCode().byteValue());
     }
 
     @Test
     public void paid() {
         OrderDto orderDto = iOrderService.getOne(ORDER_ID);
         OrderDto result = iOrderService.paid(orderDto);
-        assertTrue(result.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode().byteValue()));
+        assertEquals("验证通过", (byte) result.getPayStatus(), PayStatusEnum.SUCCESS.getCode().byteValue());
+    }
+
+    @Test
+    public void findList1() {
+        PageRequest pageRequest = PageRequest.of(1, 2);
+        Page<OrderDto> page = iOrderService.findList(pageRequest);
+        assertTrue(page.getTotalElements() != 0);
     }
 }
