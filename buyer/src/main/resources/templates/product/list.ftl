@@ -13,31 +13,37 @@
                     <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>
-                            <th>订单ID</th>
-                            <th>姓名</th>
-                            <th>手机号</th>
-                            <th>地址</th>
-                            <th>金额</th>
-                            <th>订单状态</th>
-                            <th>支付状态</th>
+                            <th>商品ID</th>
+                            <th>名称</th>
+                            <th>图片</th>
+                            <th>单价</th>
+                            <th>库存</th>
+                            <th>描述</th>
+                            <th>类目</th>
                             <th>创建时间</th>
+                            <th>修改时间</th>
                             <th colspan="2">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <#list data.getContent() as order>
+                        <#list data.getContent() as product>
                             <tr>
-                                <td>${order.orderId}</td>
-                                <td>${order.buyerName}</td>
-                                <td>${order.buyerPhone}</td>
-                                <td>${order.buyerAddress}</td>
-                                <td>${order.orderAmount}</td>
-                                <td>${order.getOrderStatusEnum().getDesc()}</td>
-                                <td>${order.getPayStatusEnum().getDesc()}</td>
-                                <td>${order.createTime}</td>
-                                <td><a href="/sell/seller/order/detail?orderId=${order.orderId}">详情</a></td>
-                                <#if order.getOrderStatusEnum().desc == "新订单">
-                                    <td><a href="/sell/seller/order/cancel?orderId=${order.orderId}">取消</a></td>
+                                <td>${product.productId}</td>
+                                <td>${product.productName}</td>
+                                <td><img height="80" width="80" src="${product.productIcon}" alt=""/></td>
+                                <td>${product.productPrice}</td>
+                                <td>${product.productStock}</td>
+                                <td>${product.productDescription}</td>
+                                <td>${product.categoryType}</td>
+                                <td>${product.createTime}</td>
+                                <td>${product.updateTime}</td>
+                                <td><a href="/sell/seller/product/index?productId=${product.productId}">修改</a></td>
+                                <#if product.getProductStatusEnum().desc == "上架">
+                                    <td><a href="/sell/seller/product/off_sale?productId=${product.productId}">下架</a>
+                                    </td>
+                                </#if>
+                                <#if product.getProductStatusEnum().desc == "下架">
+                                    <td><a href="/sell/seller/product/on_sale?productId=${product.productId}">上架</a></td>
                                 </#if>
                             </tr>
                         </#list>
@@ -52,7 +58,7 @@
                             </li>
                         <#else >
                             <li>
-                                <a href="/sell/seller/order/list?page=${currentPage-1}&size=${size}">上一页</a>
+                                <a href="/sell/seller/product/list?page=${currentPage-1}&size=${size}">上一页</a>
                             </li>
                         </#if>
 
@@ -63,7 +69,7 @@
                                 </li>
                             <#else >
                                 <li>
-                                    <a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a>
+                                    <a href="/sell/seller/product/list?page=${index}&size=${size}">${index}</a>
                                 </li>
                             </#if>
                         </#list>
@@ -73,7 +79,7 @@
                             </li>
                         <#else >
                             <li>
-                                <a href="/sell/seller/order/list?page=${currentPage+1}&size=${size}">下一页</a>
+                                <a href="/sell/seller/product/list?page=${currentPage+1}&size=${size}">下一页</a>
                             </li>
                         </#if>
 

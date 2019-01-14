@@ -58,4 +58,38 @@ public class SellerOrderController {
         map.put("url", "/sell/seller/order/list");
         return new ModelAndView("/common/success", map);
     }
+
+    @GetMapping(value = "/detail")
+    public ModelAndView detail(@RequestParam(value = "orderId") String orderId) {
+        Map<String, Object> map;
+        OrderDto orderDto;
+        try {
+            orderDto = orderService.getOne(orderId);
+        } catch (SellException e) {
+            log.error("【卖家端查询订单详情】发生异常{}", e);
+            map = JsonData.fail(e.getMessage()).toMap();
+            map.put("url", "/sell/seller/order/list");
+            return new ModelAndView("/common/error", map);
+        }
+        map = JsonData.success(ResponseCode.ORDER_CANCEL_SUCCESS.getDesc(), orderDto).toMap();
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("/order/detail", map);
+    }
+
+    @GetMapping(value = "/finish")
+    public ModelAndView finish(@RequestParam(value = "orderId") String orderId) {
+        Map<String, Object> map;
+        try {
+            OrderDto orderDto = orderService.getOne(orderId);
+            orderService.finish(orderDto);
+        } catch (SellException e) {
+            log.error("【卖家端完结订单】发生异常{}", e);
+            map = JsonData.fail(e.getMessage()).toMap();
+            map.put("url", "/sell/seller/order/list");
+            return new ModelAndView("/common/error", map);
+        }
+        map = JsonData.success(ResponseCode.ORDER_FINISH_SUCCESS.getDesc()).toMap();
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("/common/success", map);
+    }
 }

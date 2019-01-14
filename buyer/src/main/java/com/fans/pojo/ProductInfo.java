@@ -1,5 +1,8 @@
 package com.fans.pojo;
 
+import com.fans.common.ProductStatusEnum;
+import com.fans.uitls.EnumUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -68,5 +71,10 @@ public class ProductInfo {
     @org.hibernate.annotations.UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus.intValue(), ProductStatusEnum.class);
+    }
 
 }

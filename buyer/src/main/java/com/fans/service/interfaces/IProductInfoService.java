@@ -54,4 +54,20 @@ public interface IProductInfoService {
      */
     void decreaseStock(List<CartDto> cartDTOList);
 
+    /**
+     * 商品上架
+     *
+     * @param productId
+     * @return
+     */
+    ProductInfo onSale(String productId);
+
+    /**
+     * 商品下架
+     *
+     * @param productId
+     * @return
+     */
+    ProductInfo offSale(String productId);
+
 }
