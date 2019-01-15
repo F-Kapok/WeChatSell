@@ -1,6 +1,7 @@
 package com.fans.controller;
 
 import com.fans.common.ResponseCode;
+import com.fans.config.ProductConstant;
 import com.fans.exception.SellException;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
@@ -30,12 +31,14 @@ import java.nio.charset.StandardCharsets;
 public class WeChatController {
     @Resource(name = "wxMpService")
     private WxMpService wxMpService;
+    @Resource(name = "productConstant")
+    private ProductConstant productConstant;
 
     @GetMapping(value = "/authorize")
     public String authorize(@RequestParam(value = "returnUrl") String returnUrl) throws UnsupportedEncodingException {
         //配置
         //调用方发
-        String url = "http://mapok.natapp1.cc/sell/wechat/userInfo";
+        String url = productConstant.getUrl() + "/sell/wechat/userInfo";
         String redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAuth2Scope.SNSAPI_USERINFO, URLEncoder.encode(returnUrl, StandardCharsets.UTF_8.name()));
         return "redirect:" + redirectUrl;
     }

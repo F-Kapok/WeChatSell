@@ -25,3 +25,6 @@ wechat:
   mchKey: 130930199411012418Fan18538111791
   keyPath: F:/MyProject/WeiXinShop/buyer/src/main/resources/static/cert/apiclient_cert.p12
   notifyUrl: http://mapok.natapp1.cc/sell/pay/notify
+
+producturl:
+  url: http://mapok.natapp1.cc
