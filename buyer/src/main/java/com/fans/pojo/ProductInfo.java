@@ -51,7 +51,7 @@ public class ProductInfo {
     /**
      * 商品状态,0正常1下架
      */
-    private Byte productStatus;
+    private Byte productStatus = ProductStatusEnum.UP.getCode().byteValue();
 
     /**
      * 类目编号
