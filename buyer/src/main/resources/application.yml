@@ -21,10 +21,14 @@ spring:
 wechat:
   mpAppId: wx6d790fe13fcf7a82
   mpAppSecret: 8fa58d6612648f4f204362155bdb5210
+  mpAppIdTest: wx39e0c2f1b1fdc18c
+  mpAppSecretTest: f67c87798f947b9b3687d199f2d169b2
   mchId: 1522963161
   mchKey: 130930199411012418Fan18538111791
   keyPath: F:/MyProject/WeiXinShop/buyer/src/main/resources/static/cert/apiclient_cert.p12
   notifyUrl: http://mapok.natapp1.cc/sell/pay/notify
-
+  templateId:
+    orderStatus: 4FcIgwupdgUlzmfRNz9izjTzTqOePTYsmNoVY10tafo
 producturl:
   url: http://mapok.natapp1.cc
+

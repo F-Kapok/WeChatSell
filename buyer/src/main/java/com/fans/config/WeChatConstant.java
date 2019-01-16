@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * @ClassName WeChatConstant
  * @Description:
@@ -20,6 +22,9 @@ public class WeChatConstant {
 
     private String mpAppSecret;
 
+    private String mpAppIdTest;
+
+    private String mpAppSecretTest;
     /**
      * 商户号
      */
@@ -39,4 +44,8 @@ public class WeChatConstant {
      * 微信支付异步通知地址
      */
     private String notifyUrl;
+    /**
+     * 模板ID
+     */
+    private Map<String, String> templateId;
 }

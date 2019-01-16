@@ -15,6 +15,7 @@ import com.fans.repository.ProductInfoRepository;
 import com.fans.service.interfaces.IOrderService;
 import com.fans.service.interfaces.IPayService;
 import com.fans.service.interfaces.IProductInfoService;
+import com.fans.service.interfaces.IPushMessageService;
 import com.fans.uitls.CommonUtil;
 import com.fans.uitls.IdUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Resource(name = "iPayService")
     private IPayService payService;
+
+    @Resource(name = "iPushMessageService")
+    private IPushMessageService pushMessageService;
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -166,6 +170,8 @@ public class OrderServiceImpl implements IOrderService {
             log.error("【完结订单】更新失败, orderMaster={}", orderMaster);
             throw new SellException(ResponseCode.ORDER_UPDATE_FAIL);
         }
+        //推送模板消息
+        pushMessageService.orderStatusPush(orderDto);
         return orderDto;
     }
 
