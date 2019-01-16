@@ -31,6 +31,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -211,7 +212,7 @@ public class OrderServiceImpl implements IOrderService {
     public Page<OrderDto> findList(Pageable pageable) {
         Page<OrderMaster> orderMasterList = masterRepository.findAll(pageable);
         List<OrderDto> orderDtoList = orderMasterList.stream()
-                .map(OrderDto::adapt).collect(Collectors.toList());
+                .map(OrderDto::adapt).sorted((o1, o2) -> (int) (o2.getCreateTime().getTime() - o1.getCreateTime().getTime())).collect(Collectors.toList());
         return new PageImpl<>(orderDtoList, pageable, orderMasterList.getTotalElements());
     }
 }
