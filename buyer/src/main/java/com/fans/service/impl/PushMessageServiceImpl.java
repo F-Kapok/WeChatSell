@@ -12,6 +12,7 @@ import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -34,13 +35,13 @@ public class PushMessageServiceImpl implements IPushMessageService {
         WxMpTemplateMessage wxMpTemplateMessage = new WxMpTemplateMessage();
         wxMpTemplateMessage.setTemplateId(weChatConstant.getTemplateId().get("orderStatus"));
         wxMpTemplateMessage.setToUser(orderDto.getBuyerOpenid());
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         List<WxMpTemplateData> data = Lists.newArrayList(
                 new WxMpTemplateData("first", "亲，请记得收货。"),
-                new WxMpTemplateData("keyword1", "微信点餐"),
-                new WxMpTemplateData("keyword2", "18868812345"),
-                new WxMpTemplateData("keyword3", orderDto.getOrderId()),
-                new WxMpTemplateData("keyword4", orderDto.getOrderStatusEnum().getDesc()),
-                new WxMpTemplateData("keyword5", "￥" + orderDto.getOrderAmount()),
+                new WxMpTemplateData("keyword1", orderDto.getOrderId()),
+                new WxMpTemplateData("keyword2", "￥" + orderDto.getOrderAmount()),
+                new WxMpTemplateData("keyword3", orderDto.getOrderStatusEnum().getDesc()),
+                new WxMpTemplateData("keyword4", sf.format(orderDto.getCreateTime())),
                 new WxMpTemplateData("remark", "欢迎再次光临！")
         );
         wxMpTemplateMessage.setData(data);
