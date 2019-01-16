@@ -97,7 +97,7 @@
                 你有新的订单
             </div>
             <div class="modal-footer">
-                <button onclick="javascript:document.getElementById('notice').pause();" type="button"
+                <button onclick="javascript:document.getElementById('notice').pause();location.reload()" type="button"
                         class="btn btn-default" data-dismiss="modal">关闭
                 </button>
                 <button onclick="location.reload()" type="button" class="btn btn-primary">查看</button>
