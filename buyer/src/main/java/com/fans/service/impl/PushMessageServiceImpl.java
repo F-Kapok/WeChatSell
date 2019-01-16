@@ -35,7 +35,7 @@ public class PushMessageServiceImpl implements IPushMessageService {
         WxMpTemplateMessage wxMpTemplateMessage = new WxMpTemplateMessage();
         wxMpTemplateMessage.setTemplateId(weChatConstant.getTemplateId().get("orderStatus"));
         wxMpTemplateMessage.setToUser(orderDto.getBuyerOpenid());
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<WxMpTemplateData> data = Lists.newArrayList(
                 new WxMpTemplateData("first", "亲，请记得收货。"),
                 new WxMpTemplateData("keyword1", orderDto.getOrderId()),
