@@ -26,7 +26,7 @@ wechat:
   mpAppSecretTest: f67c87798f947b9b3687d199f2d169b2
   mchId: 1522963161
   mchKey: 130930199411012418Fan18538111791
-  keyPath: /usr/local/develop/cert/apiclient_cert.p12
+  keyPath: /usr/local/developer/cert/apiclient_cert.p12
   notifyUrl: http://mapok.natapp1.cc/sell/pay/notify
   templateId:
     orderStatus: 4FcIgwupdgUlzmfRNz9izjTzTqOePTYsmNoVY10tafo
