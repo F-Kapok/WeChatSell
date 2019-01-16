@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -19,7 +20,9 @@ import java.util.List;
 @Builder
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductVO {
+public class ProductVO implements Serializable {
+    
+    private static final long serialVersionUID = 4305639511386554470L;
 
     @JsonProperty("name")
     private String cateGoryName;

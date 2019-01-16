@@ -24,6 +24,7 @@ import javax.validation.Valid;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @ClassName BuyerOrderController
@@ -49,7 +50,7 @@ public class BuyerOrderController {
         if (bindingResult.hasErrors()) {
             log.error("【创建订单】参数不正确，orderParam = {}", orderParam);
             throw new SellException(ResponseCode.PARAM_ERROR.getCode()
-                    , bindingResult.getFieldError().getDefaultMessage());
+                    , Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
         //对象转换
         OrderDto orderDto = new OrderDto();

@@ -1,9 +1,14 @@
 package com.fans.handler;
 
+import com.fans.common.JsonData;
 import com.fans.config.ProductConstant;
+import com.fans.exception.SellException;
 import com.fans.exception.SellerAuthorizeException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -25,5 +30,12 @@ public class SellerExceptionHandler {
         return new ModelAndView("redirect:"
                 .concat(productConstant.getUrl())
                 .concat("/sell/seller/index"));
+    }
+
+    @ExceptionHandler(value = SellException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public JsonData handlerSellException(SellException e) {
+        return JsonData.failCodeMsg(e.getCode(), e.getMessage());
     }
 }

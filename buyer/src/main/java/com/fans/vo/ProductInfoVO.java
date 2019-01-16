@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -19,7 +20,8 @@ import java.math.BigDecimal;
 @Builder
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductInfoVO {
+public class ProductInfoVO implements Serializable {
+    private static final long serialVersionUID = 5948168032901370526L;
 
     /**
      * 商品主键

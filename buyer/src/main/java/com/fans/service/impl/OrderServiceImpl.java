@@ -12,6 +12,7 @@ import com.fans.pojo.ProductInfo;
 import com.fans.repository.OrderDetailRepository;
 import com.fans.repository.OrderMasterRepository;
 import com.fans.repository.ProductInfoRepository;
+import com.fans.server.WebSocket;
 import com.fans.service.interfaces.IOrderService;
 import com.fans.service.interfaces.IPayService;
 import com.fans.service.interfaces.IProductInfoService;
@@ -62,6 +63,9 @@ public class OrderServiceImpl implements IOrderService {
     @Resource(name = "iPushMessageService")
     private IPushMessageService pushMessageService;
 
+    @Resource(name = "webSocket")
+    private WebSocket webSocket;
+
     @Override
     @Transactional(rollbackOn = Exception.class)
     public OrderDto create(OrderDto orderDto) {
@@ -94,6 +98,9 @@ public class OrderServiceImpl implements IOrderService {
                 .productQuantity(orderDetail.getProductQuantity())
                 .build()).collect(Collectors.toList());
         productInfoService.decreaseStock(cartDtoList);
+
+        //websocket发送消息
+        webSocket.sendMessage("你有新的订单");
         return orderDto;
     }
 

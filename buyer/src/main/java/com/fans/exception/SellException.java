@@ -1,6 +1,7 @@
 package com.fans.exception;
 
 import com.fans.common.ResponseCode;
+import lombok.Data;
 
 /**
  * @ClassName SellException
@@ -9,6 +10,7 @@ import com.fans.common.ResponseCode;
  * @Date 2019-01-03 14:44
  * @Version 1.0
  **/
+@Data
 public class SellException extends RuntimeException {
     private Integer code;
 

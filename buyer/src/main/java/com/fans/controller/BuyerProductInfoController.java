@@ -9,6 +9,8 @@ import com.fans.vo.ProductInfoVO;
 import com.fans.vo.ProductVO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  **/
 @RestController
 @RequestMapping(value = "/buyer/product")
+@CacheConfig(cacheNames = "product")
 public class BuyerProductInfoController {
     @Resource(name = "iProductCategoryService")
     private IProductCategoryService productCategoryService;
@@ -33,6 +36,7 @@ public class BuyerProductInfoController {
     private IProductInfoService productInfoService;
 
     @GetMapping(value = "/list")
+    @Cacheable(key = "123", unless = "#result.code !=0")
     public JsonData list() {
         //1. 查询上架商品
         List<ProductInfo> productInfoList = productInfoService.findUpAll();

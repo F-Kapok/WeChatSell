@@ -11,6 +11,8 @@ import com.fans.uitls.IdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -37,6 +39,7 @@ import java.util.Objects;
 @Controller
 @RequestMapping(value = "/seller/product")
 @Slf4j
+@CacheConfig(cacheNames = "product")
 public class SellerProductController {
     @Resource(name = "iProductInfoService")
     private IProductInfoService productInfoService;
@@ -101,6 +104,7 @@ public class SellerProductController {
     }
 
     @PostMapping(value = "/save")
+    @CacheEvict(key = "123", condition = "#result.getModel().get('code')==0")
     public ModelAndView save(@Valid ProductParam param, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String defaultMessage = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
@@ -111,9 +115,9 @@ public class SellerProductController {
         }
         try {
             ProductInfo productInfo = new ProductInfo();
+            productInfo.setProductStock(Integer.parseInt(param.getProductStock()));
             if (StringUtils.isNotBlank(param.getProductId())) {
                 productInfo = productInfoService.findOne(param.getProductId());
-                productInfo.setProductStock(Integer.parseInt(param.getProductStock()));
             } else {
                 param.setProductId(IdUtil.getTimestampId());
             }
