@@ -115,7 +115,7 @@ public class SellerProductController {
         }
         try {
             ProductInfo productInfo = new ProductInfo();
-            productInfo.setProductStock(Integer.parseInt(param.getProductStock()));
+            productInfo.setProductStock(param.getProductStock());
             if (StringUtils.isNotBlank(param.getProductId())) {
                 productInfo = productInfoService.findOne(param.getProductId());
             } else {

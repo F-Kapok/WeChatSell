@@ -29,7 +29,7 @@ public class ProductParam {
     /**
      * 库存
      */
-    private String productStock;
+    private Integer productStock;
 
     /**
      * 描述

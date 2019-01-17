@@ -28,7 +28,8 @@
                         </div>
                         <div class="form-group">
                             <label>库存</label>
-                            <input name="productStock" value="${(productInfo.productStock)!''}" type="text"
+                            <input name="productStock" value="${(productInfo.productStock)?c!''}"
+                                   type="text"
                                    class="form-control"/>
                         </div>
                         <div class="form-group">
