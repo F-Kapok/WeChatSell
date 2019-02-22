@@ -3,6 +3,7 @@ IF EXISTS cloud;
 CREATE DATABASE cloud CHARACTER
 SET utf8 COLLATE utf8_Unicode_ci;
 USE cloud;
+
 /*
 Navicat MySQL Data Transfer
 
