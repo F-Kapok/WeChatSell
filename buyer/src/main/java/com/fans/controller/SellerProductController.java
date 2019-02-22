@@ -7,7 +7,10 @@ import com.fans.pojo.ProductCategory;
 import com.fans.pojo.ProductInfo;
 import com.fans.service.interfaces.IProductCategoryService;
 import com.fans.service.interfaces.IProductInfoService;
+import com.fans.uitls.FtpUtil;
 import com.fans.uitls.IdUtil;
+import com.google.common.collect.Lists;
+import com.lly835.bestpay.rest.type.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -21,10 +24,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -122,15 +127,57 @@ public class SellerProductController {
                 param.setProductId(IdUtil.getTimestampId());
             }
             BeanUtils.copyProperties(param, productInfo);
+            MultipartFile productIcon = param.getProductIcon();
+            String uploadFile = "";
+            if (StringUtils.isNotBlank(productIcon.getOriginalFilename())) {
+                InputStream inputStream = param.getProductIcon().getInputStream();
+                File picFile = new File(Objects.requireNonNull(param.getProductIcon().getOriginalFilename()));
+                inputStreamToFile(inputStream, picFile);
+                uploadFile = FtpUtil.uploadFile(Lists.newArrayList(picFile));
+                picFile.delete();
+            } else {
+                ProductInfo one = productInfoService.findOne(param.getProductId());
+                if (one != null) {
+                    uploadFile = one.getProductIcon();
+                }
+            }
+            productInfo.setProductIcon(uploadFile);
             productInfoService.save(productInfo);
         } catch (Exception e) {
-            log.error("【卖家端新增或更新产品】发生异常{}", e);
+            log.error("【卖家端新增或更新产品】发生异常:" + e.getMessage(), e);
             Map<String, Object> map = JsonData.fail(e.getMessage()).toMap();
-            map.put("url", "/sell/seller/product/index");
+            map.put("url", "/sell/seller/product/list");
             return new ModelAndView("/common/error", map);
         }
         Map<String, Object> map = JsonData.success().toMap();
         map.put("url", "/sell/seller/product/list");
         return new ModelAndView("/common/success", map);
+    }
+
+    private void inputStreamToFile(InputStream inputStream, File picFile) {
+        try {
+            OutputStream os = new FileOutputStream(picFile);
+            int bytesRead;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = inputStream.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @PostMapping(value = "/upload")
+    public JsonData<String> uploadPicture(MultipartFile multipartFile) {
+        try {
+            InputStream inputStream = multipartFile.getInputStream();
+            System.out.println(inputStream.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return JsonData.success();
     }
 }

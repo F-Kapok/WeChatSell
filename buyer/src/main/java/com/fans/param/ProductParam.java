@@ -1,6 +1,7 @@
 package com.fans.param;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 
@@ -39,7 +40,7 @@ public class ProductParam {
     /**
      * 小图
      */
-    private String productIcon;
+    private MultipartFile productIcon;
 
     /**
      * 类目编号
