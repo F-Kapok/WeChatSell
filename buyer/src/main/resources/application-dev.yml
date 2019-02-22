@@ -35,4 +35,5 @@ wechat:
     orderStatus: FIl1dwXx2Doq-MaVJZuQIg_kiyRCUa-HkFzcCosQ2_4
 producturl:
   url: http://localhost:8080
-
+swagger:
+  show: true

@@ -2,6 +2,7 @@ package com.fans.service.interfaces;
 
 import com.fans.dto.CartDto;
 import com.fans.pojo.ProductInfo;
+import com.fans.vo.ProductInfoVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -70,4 +71,8 @@ public interface IProductInfoService {
      */
     ProductInfo offSale(String productId);
 
+    /**
+     * 搜索上架中的商品
+     */
+    List<ProductInfo> searchProDuctUp(String proName);
 }

@@ -8,12 +8,14 @@ import com.fans.service.interfaces.IProductInfoService;
 import com.fans.vo.ProductInfoVO;
 import com.fans.vo.ProductVO;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/buyer/product")
 @CacheConfig(cacheNames = "product")
+@Api(value = "买家商品信息控制层", tags = "买家商品信息相关")
 public class BuyerProductInfoController {
     @Resource(name = "iProductCategoryService")
     private IProductCategoryService productCategoryService;
@@ -64,5 +67,21 @@ public class BuyerProductInfoController {
             result.add(productVO);
         }
         return JsonData.success("成功", result);
+    }
+
+    @GetMapping(value = "/search")
+    @ApiOperation(value = "买家商品页面通过名称搜索产品接口", tags = "买家商品信息相关")
+    public JsonData<List<ProductInfoVO>> productSearch(@RequestParam(value = "proName", required = false) @ApiParam(value = "商品名称（型号）") String proName) {
+        List<ProductInfo> productInfoList = productInfoService.searchProDuctUp(proName);
+        if (CollectionUtils.isEmpty(productInfoList)) {
+            return JsonData.success("暂无此型号商品！！！");
+        }
+        List<ProductInfoVO> result = Lists.newArrayList();
+        ProductInfoVO productInfoVO;
+        for (ProductInfo productInfo : productInfoList) {
+            productInfoVO = ProductInfoVO.adapt(productInfo);
+            result.add(productInfoVO);
+        }
+        return JsonData.success("查询成功", result);
     }
 }

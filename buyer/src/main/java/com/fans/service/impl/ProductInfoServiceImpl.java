@@ -8,7 +8,10 @@ import com.fans.pojo.ProductInfo;
 import com.fans.repository.ProductInfoRepository;
 import com.fans.service.interfaces.IProductInfoService;
 import com.fans.uitls.CommonUtil;
+import com.fans.vo.ProductInfoVO;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -104,5 +107,16 @@ public class ProductInfoServiceImpl implements IProductInfoService {
         //更新
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode().byteValue());
         return productInfoRepository.save(productInfo);
+    }
+
+    @Override
+    public List<ProductInfo> searchProDuctUp(String proName) {
+        List<ProductInfo> productInfoList = Lists.newArrayList();
+        if (StringUtils.isNotBlank(proName)) {
+            productInfoList = productInfoRepository.findByProductNameAndProductStatus(proName, ProductStatusEnum.UP.getCode().byteValue());
+        } else {
+            productInfoList = productInfoRepository.findByProductStatus(ProductStatusEnum.UP.getCode().byteValue());
+        }
+        return productInfoList;
     }
 }
