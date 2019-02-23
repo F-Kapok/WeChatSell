@@ -67,6 +67,7 @@ public class SellerUserController {
             result.put("url", "/sell/seller/index");
             return new ModelAndView("/common/error", result);
         }
+
         redisTemplate.opsForValue().set(String.format(productConstant.getTOKEN(), uuid), param.getUsername(), productConstant.getTIME_OUT(), TimeUnit.SECONDS);
         CookieUtils.setCookie(request, response, productConstant.getCOOKIE_TOKEN(), uuid, productConstant.getTIME_OUT());
         return new ModelAndView("redirect:" + productConstant.getUrl() + "/sell/seller/order/list");
