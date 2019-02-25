@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1/cloud?serverTimezone=GMT%2b8&useSSL=false&characterEncoding=UTF-8
     username: root
-    password: sL.18538111791
+    password: root
   jpa:
     show-sql: false
     open-in-view: false
