@@ -130,6 +130,7 @@ public class SellerProductController {
             MultipartFile productIcon = param.getProductIcon();
             String uploadFile = "";
             if (StringUtils.isNotBlank(productIcon.getOriginalFilename())) {
+                log.info("--> 开始修改文件名称");
                 InputStream inputStream = param.getProductIcon().getInputStream();
                 int i = productIcon.getOriginalFilename().lastIndexOf(".");
                 String suffix = "";
