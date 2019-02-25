@@ -63,6 +63,7 @@ public class SellerProductController {
     }
 
     @GetMapping(value = "/on_sale")
+    @CacheEvict(key = "123", condition = "#result.getModel().get('code')==0")
     public ModelAndView onSale(String productId) {
         Map<String, Object> map;
         try {
@@ -79,6 +80,7 @@ public class SellerProductController {
     }
 
     @GetMapping(value = "/off_sale")
+    @CacheEvict(key = "123", condition = "#result.getModel().get('code')==0")
     public ModelAndView offSale(String productId) {
         Map<String, Object> map;
         try {
