@@ -131,7 +131,13 @@ public class SellerProductController {
             String uploadFile = "";
             if (StringUtils.isNotBlank(productIcon.getOriginalFilename())) {
                 InputStream inputStream = param.getProductIcon().getInputStream();
-                File picFile = new File(Objects.requireNonNull(param.getProductIcon().getOriginalFilename()));
+                int i = productIcon.getOriginalFilename().lastIndexOf(".");
+                String suffix = "";
+                if (i != -1) {
+                    suffix = productIcon.getOriginalFilename().substring(i);
+                }
+                String fileName = IdUtil.getTimestampId().concat(suffix);
+                File picFile = new File(fileName);
                 inputStreamToFile(inputStream, picFile);
                 uploadFile = FtpUtil.uploadFile(Lists.newArrayList(picFile));
                 picFile.delete();
@@ -167,17 +173,5 @@ public class SellerProductController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @PostMapping(value = "/upload")
-    public JsonData<String> uploadPicture(MultipartFile multipartFile) {
-        try {
-            InputStream inputStream = multipartFile.getInputStream();
-            System.out.println(inputStream.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return JsonData.success();
     }
 }
