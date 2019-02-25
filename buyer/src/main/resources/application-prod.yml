@@ -32,11 +32,11 @@ wechat:
   mchId: 1522963161
   mchKey: 130930199411012418Fan18538111791
   keyPath: /usr/local/developer/cert/apiclient_cert.p12
-  notifyUrl: http://www.fkapok.cn/sell/pay/notify
+  notifyUrl: http://mapok.natapp1.cc/sell/pay/notify
   templateId:
     orderStatus: FIl1dwXx2Doq-MaVJZuQIg_kiyRCUa-HkFzcCosQ2_4
 producturl:
-  url: http://www.fkapok.cn
+  url: http://mapok.natapp1.cc
 swagger:
   show: false
 
