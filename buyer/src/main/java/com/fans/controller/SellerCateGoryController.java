@@ -7,6 +7,8 @@ import com.fans.service.interfaces.IProductCategoryService;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,7 @@ import java.util.Objects;
 @Controller
 @RequestMapping(value = "/seller/category")
 @Slf4j
+@CacheConfig(cacheNames = "cateGory")
 public class SellerCateGoryController {
     @Resource(name = "iProductCategoryService")
     private IProductCategoryService productCategoryService;
@@ -52,6 +55,7 @@ public class SellerCateGoryController {
     }
 
     @PostMapping(value = "/save")
+    @CacheEvict(key = "123", condition = "#result.getModel().get('code')=0")
     public ModelAndView save(CategoryParam param, BindingResult bindingResult) {
         Map<String, Object> map;
         if (bindingResult.hasErrors()) {
