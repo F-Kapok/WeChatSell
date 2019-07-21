@@ -32,7 +32,6 @@ import java.util.Objects;
 @Controller
 @RequestMapping(value = "/seller/category")
 @Slf4j
-@CacheConfig(cacheNames = "product")
 public class SellerCateGoryController {
     @Resource(name = "iProductCategoryService")
     private IProductCategoryService productCategoryService;
@@ -55,7 +54,6 @@ public class SellerCateGoryController {
     }
 
     @PostMapping(value = "/save")
-    @CacheEvict(key = "123", condition = "#result.getModel().get('code')=0")
     public ModelAndView save(CategoryParam param, BindingResult bindingResult) {
         Map<String, Object> map;
         if (bindingResult.hasErrors()) {
