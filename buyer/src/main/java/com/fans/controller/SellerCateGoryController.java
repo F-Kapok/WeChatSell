@@ -32,7 +32,7 @@ import java.util.Objects;
 @Controller
 @RequestMapping(value = "/seller/category")
 @Slf4j
-@CacheConfig(cacheNames = "cateGory")
+@CacheConfig(cacheNames = "product")
 public class SellerCateGoryController {
     @Resource(name = "iProductCategoryService")
     private IProductCategoryService productCategoryService;
